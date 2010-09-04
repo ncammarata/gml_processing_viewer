@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script>
+            var strokes=0;
+            var gml=0;
+            $(function() {
+                var i = window.location.hash.substring(1);
+                if (!i) return alert('you must specify an id, try /index.html#161');
+                $.getJSON('http://000000book.com/data/' + i + '.json?callback=?', function(data) {
+                   gml = data;
+                   strokes = data.gml.tag.drawing.stroke;
+                });          
+            });
+        </script>
+        <script src="processing.js"></script>
+   </html>
+   <body>
+        <canvas id="can" data-processing-sources="gml.js"></canvas>
+   </body>
+</html>
