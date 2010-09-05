@@ -43,21 +43,15 @@ draw = function() {
 
 function drawLine(x,y,x2,y2) {
     _x = rotation ? y*height : x*width;
-    _y = rotation ? x*width : y*height;
+    _y = rotation ? width-(x*width) : y*height;
     _x2 = rotation ? y2 * height : x2*width;
-    _y2 = rotation ? x2 * width : y2*height;
-    strokeWeight(5);
-    stroke(230);
-    if (ol!==null) line(ol._x,ol._y,ol._x2,ol._y2);
-    stroke(00);
+    _y2 = rotation ? width - (x2 * width) : y2*height;
+    stroke(0);
     strokeWeight(5);
     line(_x,_y,_x2,_y2);
-    //strokeWeight(5);
     stroke(255);
     line(_x,_y,_x2,_y2);
-    //this is ugly 
-    //try { line(ol._x,ol._y,ol._x2,ol._y2); } catch(err) {}
-    ol = { x: _x, y: _y, x2: _x2, y2: _y2 };
+    //ol = { x: _x, y: _y, x2: _x2, y2: _y2 };
 }
 
 function reset() {
