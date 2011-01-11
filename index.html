@@ -5,17 +5,63 @@
             var strokes=0;
             var gml=0;
             $(function() {
-                var i = window.location.hash.substring(1);
-                if (!i) return alert('you must specify an id, try /index.html#161');
-                $.getJSON('http://000000book.com/data/' + i + '.json?callback=?', function(data) {
-                   gml = data;
-                   strokes = data.gml.tag.drawing.stroke;
-                });          
+               var loadGML = function() {
+                       var id = window.location.hash.substring(1);
+                       if (!id) return;
+                       $.getJSON('http://000000book.com/data/' + id + '.json?callback=?', function(data) {
+                          gml = {
+                            id: id,
+                            data: data,
+                            strokes: data.gml.tag.drawing.stroke
+                          } 
+                          var holder = $('#canvasHolder').empty();
+                       });          
+                   }
+                $('#btn').click(function() {
+                    location.hash = $('#gmlId').val();
+                    location.reload();
+                });
+                $('#gmlId').keydown(function(e) {
+                    if (e.which == 13) $('#btn').click();
+                });
+
+                loadGML();
             });
         </script>
+        <style>
+
+            #toolbar { 
+                margin:5px;    
+            }
+
+            #toolbar span {
+                color:#444;
+                font-size:18px;
+            }
+
+            input {
+                background:white;
+                border:1px solid #444;
+                padding:3px;
+                font-size:18px;    
+            }
+            
+            input[type=button] {
+                font-size:17px;    
+            }
+
+            input[type=text] { color:black; }
+            input[type=text].unfocused {
+                text:#999;
+            }
+        </style>
         <script src="processing.js"></script>
    </html>
    <body>
-        <canvas id="can" data-processing-sources="gml.js"></canvas>
+        <div id=toolbar>
+            GML Sketch ID: <input class="unfocused" type=text id=gmlId value=161/>
+            <input type=button id=btn value="Load GML">
+        </div>
+        <canvas data-processing-sources="gml.js"></canvas>
    </body>
 </html>

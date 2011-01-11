@@ -4,9 +4,10 @@ var _stroke = 0, // current stroke
     start = +(new Date()),
     x, 
     y, 
-    rotation = false, //pjs dies on comma seperation
+    rotation = false,
     lastHyp,
     ol; // oldLine - redraws last line to remove border overflow
+
 setup = function() {
     size(800,580);    
     frameRate(60);
@@ -15,13 +16,15 @@ setup = function() {
     var si = setInterval(function() {
         if (!gml) return;
         clearInterval(si);
-        var tag = gml.gml.tag;
+        strokes = gml.strokes;
+        var tag = gml.data.gml.tag;
         var app_name = tag.header && tag.header.client && tag.header.client.name; 
         rotation = app_name == 'Graffiti Analysis 2.0: DustTag' || 
                    app_name == 'DustTag: Graffiti Analysis 2.0' || 
                    app_name == 'Fat Tag - Katsu Edition';
     }, 50);
 };
+
 
 draw = function() {
     var start; var hyp;
@@ -44,16 +47,15 @@ draw = function() {
 };
 
 function drawLine(x,y,x2,y2) {
-    _x = rotation ? y*height : x*width;
-    _y = rotation ? width-(x*width) : y*height;
-    _x2 = rotation ? y2 * height : x2*width;
-    _y2 = rotation ? width - (x2 * width) : y2*height;
+    _x = rotation ? y * height : x * width;
+    _y = rotation ? width- (x * width) : y * height;
+    _x2 = rotation ? y2 * height : x2 * width;
+    _y2 = rotation ? width - (x2 * width) : y2 * height;
     stroke(0);
     strokeWeight(5);
     line(_x,_y,_x2,_y2);
     stroke(255);
     line(_x,_y,_x2,_y2);
-    //ol = { x: _x, y: _y, x2: _x2, y2: _y2 };
 }
 
 function reset() {
