@@ -1,10 +1,12 @@
-var _stroke = 0; // current stroke
-var onPt = 0; // current point on stroke
-var onStroke = 0; // current point on stroke
-var start = +(new Date());
-var x; var y; var rotation = false; //pjs dies on comma seperation
-var lastHyp;
-var ol; // oldLine - redraws last line to remove border overflow
+var _stroke = 0, // current stroke
+    onPt = 0, // current point on stroke
+    onStroke = 0, // current point on stroke
+    start = +(new Date()),
+    x, 
+    y, 
+    rotation = false, //pjs dies on comma seperation
+    lastHyp,
+    ol; // oldLine - redraws last line to remove border overflow
 setup = function() {
     size(800,580);    
     frameRate(60);
